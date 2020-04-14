@@ -353,7 +353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalPosition: {x: 0, y: -5.25, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -389,6 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _preSudoSheet: {fileID: 9160988007242725653, guid: d465267173656984a905b5e4572cbdfc, type: 3}
+  _cSudoSheet: {fileID: 7985983475947407379, guid: d465267173656984a905b5e4572cbdfc, type: 3}
   SheetsParent: {fileID: 1913224191}
   _mSheets:
   - {fileID: 2100000, guid: 9272a913f808e624fae8efdff6dd8aed, type: 2}

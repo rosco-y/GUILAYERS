@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using Assets.Scripts.MODEL;
 
 namespace Assets.Scripts
 {
@@ -14,7 +15,7 @@ namespace Assets.Scripts
     public class cSudoSheet : MonoBehaviour
     {
         #region PRIVATE MEMBERS
-
+        //cData _data = new cData();
         #endregion
 
         #region PUBLIC MEMBERS
