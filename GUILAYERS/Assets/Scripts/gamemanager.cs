@@ -24,9 +24,16 @@ public class gamemanager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InstantiateSheets();
-        _puzzleData = new cData();
-        _puzzleData.ReadData();
+        try
+        {
+            _puzzleData = new cData();
+            _puzzleData.ReadData();
+            InstantiateSheets();
+        }
+        catch (Exception x)
+        {
+            Debug.Log($"gamemanager.Start(): {x.Message}");
+        }
     }
 
     Vector3 UpperLeft;
@@ -35,22 +42,20 @@ public class gamemanager : MonoBehaviour
     /// </summary>
     void InstantiateSheets()
     {
+
         Vector3[] pos;
         Vector3[] scale;
         InitizlizePositionAndScaleArrays(out pos, out scale);
         // UpperLeft = new Vector3(20, 10, -10);
-        for (int sheet = 0; sheet < g.PUZZLESIZE; sheet++)
+        for (int sheet = 8; sheet < g.PUZZLESIZE; sheet++)
         {
             cSudoSheet oSheet = Instantiate(_cSudoSheet);
             oSheet.name = $"Sheet {sheet}";
             print(UpperLeft);
-            oSheet.transform.position = pos[sheet];
-            oSheet.transform.localScale = scale[sheet];
+            //oSheet.transform.position = pos[sheet];
+            //oSheet.transform.localScale = scale[sheet];
             oSheet.transform.parent = SheetsParent.transform;
-            oSheet.GetComponent<MeshRenderer>().material = _mSheets[sheet];
-            //UpperLeft.x -= 3.18f;
-            //UpperLeft.y -= 1.5f;
-            //UpperLeft.z += 2.15f;
+            oSheet.GetComponent<MeshRenderer>().material = _mSheets[8];// _mSheets[sheet];
         }
     }
 

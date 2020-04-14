@@ -4,6 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using JetBrains.Annotations;
+using System.Security.Cryptography.X509Certificates;
+using System.Runtime.CompilerServices;
 
 namespace Assets.Scripts.MODEL
 {
@@ -73,14 +75,23 @@ namespace Assets.Scripts.MODEL
         public bool ReadData()
         {
             bool success = false;
-            using (StreamReader stread = new StreamReader(@"C:\TMP\PUZZLE1.csv"))
+            try
             {
-                int pid = readHeader(stread);
-                string sline;
-                while ((sline = stread.ReadLine()) != null)
+                using (StreamReader stread = new StreamReader(@"C:\TMP\PUZZLE1.csv"))
                 {
-                    parseLine(sline);
+                    int pid = readHeader(stread);
+                    string sline;
+                    while ((sline = stread.ReadLine()) != null)
+                    {
+                        parseLine(sline);
+                    }
+                    success = stread.EndOfStream;
                 }
+
+            }
+            catch (Exception x)
+            {
+                throw new Exception($"cData.ReadData(): {x.Message}");
             }
 
             return success;
@@ -88,33 +99,56 @@ namespace Assets.Scripts.MODEL
 
         private void parseLine(string sline)
         {
+
             int lid, rid = 0;
             int[] cols = null;
-            lid = getNextInt(ref sline);
-            rid = getNextInt(ref sline);
-            readCols(sline, ref cols);
-            for (int cid = 0; cid < g.PUZZLESIZE; cid++)
+            try
             {
-                _dataArray[lid][rid][cid] = new SudoData(cols[cid]);
+                lid = getNextInt(ref sline);
+                rid = getNextInt(ref sline);
+                readCols(sline, ref cols);
+                for (int cid = 0; cid < g.PUZZLESIZE; cid++)
+                {
+                    _dataArray[lid][rid][cid] = new SudoData(cols[cid]);
+                }
+            }
+            catch (Exception x)
+            {
+                throw new Exception($"cData.parseLine(): {x.Message}");
             }
         }
 
         private void readCols(string sline, ref int[] cols)
         {
-            cols = new int[g.PUZZLESIZE];
-            var aCols = sline.Split(',');
-            for (int iCol = 0; iCol < aCols.Length; iCol++)
+            try
             {
-                cols[iCol] = int.Parse(aCols[iCol]);
+                cols = new int[g.PUZZLESIZE];
+                var aCols = sline.Split(',');
+                for (int iCol = 0; iCol < aCols.Length; iCol++)
+                {
+                    cols[iCol] = int.Parse(aCols[iCol]);
+                }
+            }
+            catch (Exception x)
+            {
+                throw new Exception($"cData.readCols(): {x.Message}");
             }
         }
 
         private int getNextInt(ref string sline)
         {
-            int index = sline.IndexOf(",");
-            int ret = int.Parse(sline.Substring(0, index));
-            sline = sline.Substring(index + 1); // past following ','
-            return ret;
+            int retInt;
+            try
+            {
+                int index = sline.IndexOf(",");
+                retInt = int.Parse(sline.Substring(0, index));
+                sline = sline.Substring(index + 1); // past following ','
+            }
+            catch (Exception x)
+            {
+                throw new Exception($"cData.getNextInt(): {x.Message}");
+            }
+            return retInt;
         }
 
 
