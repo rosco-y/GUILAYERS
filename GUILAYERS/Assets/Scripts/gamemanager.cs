@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Scripts;
 using System;
 using Assets.Scripts.MODEL;
+using TMPro;
 
 public class gamemanager : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class gamemanager : MonoBehaviour
     GameObject SheetsParent;
     [SerializeField]
     Material[] _mSheets;
+    [SerializeField]
+    Color[] _colors;
+    [SerializeField]
+    TMP_InputField[][] _sudoFields;
     float[] yValues;
     float[] xValues;
     float[] zValues;
@@ -46,16 +51,19 @@ public class gamemanager : MonoBehaviour
         Vector3[] pos;
         Vector3[] scale;
         InitizlizePositionAndScaleArrays(out pos, out scale);
-        // UpperLeft = new Vector3(20, 10, -10);
-        for (int sheet = 8; sheet < g.PUZZLESIZE; sheet++)
+         UpperLeft = new Vector3(30, 10f, -30f);
+        for (int sheet = 0; sheet < g.PUZZLESIZE; sheet++)
         {
             cSudoSheet oSheet = Instantiate(_cSudoSheet);
             oSheet.name = $"Sheet {sheet}";
             print(UpperLeft);
-            //oSheet.transform.position = pos[sheet];
+            oSheet.transform.position = UpperLeft;
             //oSheet.transform.localScale = scale[sheet];
             oSheet.transform.parent = SheetsParent.transform;
-            oSheet.GetComponent<MeshRenderer>().material = _mSheets[8];// _mSheets[sheet];
+            oSheet.GetComponent<Renderer>().material.color = _colors[sheet];
+            UpperLeft.x -= 4f;
+            UpperLeft.y -= .75f;
+            UpperLeft.z += 4f;
         }
     }
 
