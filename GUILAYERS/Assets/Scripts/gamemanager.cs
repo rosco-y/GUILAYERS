@@ -20,7 +20,6 @@ public class gamemanager : MonoBehaviour
     [SerializeField]
     Color[] _colors;
     [SerializeField]
-    TMP_InputField[][] _sudoFields;
     float[] yValues;
     float[] xValues;
     float[] zValues;
